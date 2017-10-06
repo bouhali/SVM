@@ -4,19 +4,21 @@ import numpy, pylab, random, math
 
 
 class SVMTools():
-    def __init__(self, x, t, kernel='linear', polynomial_exp=2, radial_sigma=1):
+    def __init__(self, x, t, kernel='linear', polynomial_exp=2, radial_sigma=1, sigmoid_k=1/2, sigmoid_delta=5):
         self.kernel_type = kernel
         self.polynomial_exp = polynomial_exp
         self.radial_sigma = radial_sigma
+        self.sigmoid_k = sigmoid_k
+        self.sigmoid_delta = sigmoid_delta
         self.train(x, t)
 
     def kernel(self, x, y):
-        # TODO check x^T
         if self.kernel_type == 'linear':
-            # Linear
+            x = numpy.transpose(x)
             return numpy.dot(x, y) + 1
 
         elif self.kernel_type == 'polynomial':
+            x = numpy.transpose(x)
             return numpy.power((numpy.dot(x, y) + 1), self.polynomial_exp)
 
         elif self.kernel_type == 'radial':
@@ -26,7 +28,12 @@ class SVMTools():
 
         elif self.kernel_type == 'sigmoid':
             raise Exception('TODO not implemented correctly')
-            return numpy.tanh( self.sigmoid_k )
+            x = numpy.transpose(x)
+            # TODO + or - delta???
+            return numpy.tanh(
+                    numpy.dot( numpy.multiply(self.sigmoid_k, x), y ) + self.sigmoid_delta
+                    # self.sigmoid_k * numpy.dot(x, y) + self.sigmoid_delta
+                    )
         else:
             raise ValueError('Kernel not available')
 
