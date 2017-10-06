@@ -45,7 +45,7 @@ class TestData():
         pylab.contour(x_range, y_range, grid,
                 (-1.0, 0.0, 1.0),
                 colors=('red', 'black', 'blue'),
-                linewidths=(1, 3, 1))
+                linewidths=(1, 2, 1))
 
     def show_plot(self):
         pylab.show()
