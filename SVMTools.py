@@ -4,8 +4,9 @@ import numpy, pylab, random, math
 
 
 class SVMTools():
-    def __init__(self, x, t, kernel='linear', polynomial_exp=2, radial_sigma=1, sigmoid_k=1/2, sigmoid_delta=5):
+    def __init__(self, x, t, kernel='polynomial', slack=True,  polynomial_exp=2, radial_sigma=1, sigmoid_k=1/2, sigmoid_delta=5):
         self.kernel_type = kernel
+        self.slack = slack
         self.polynomial_exp = polynomial_exp
         self.radial_sigma = radial_sigma
         self.sigmoid_k = sigmoid_k
@@ -59,12 +60,26 @@ class SVMTools():
         for i in range(0, N):
             q[i] = -1
 
-        h = numpy.zeros(N)
+        if self.slack:
+            h = numpy.zeros(2*N)
+        else:
+            h = numpy.zeros(N)
 
-        G = numpy.zeros((N, N))
+        if self.slack:
+            # TODO fix G
+            G = numpy.array([[-50.0 if y >= N else 0.0 for x in range(N)] for y in range(2*N)])
+        else:
+            G = numpy.zeros((N, N))
 
-        for i in range(0, N):
-            G[i][i] = -1
+        if self.slack:
+            for i in range(0, N):
+                G[i][i] = -1
+                # Lower part of G
+                G[N+i][i] = 0
+        else:
+            for i in range(0, N):
+                G[i][i] = -1
+        # print(G)
 
         P = self.p(t, x)
 
