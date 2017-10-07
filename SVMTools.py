@@ -28,7 +28,7 @@ class SVMTools():
             return numpy.exp(-w / (2*numpy.power(self.radial_sigma, 2)))
 
         elif self.kernel_type == 'sigmoid':
-            raise Exception('TODO not implemented correctly')
+            # raise Exception('TODO not implemented correctly')
             x = numpy.transpose(x)
             # TODO + or - delta???
             return numpy.tanh(
@@ -61,24 +61,27 @@ class SVMTools():
             q[i] = -1
 
         if self.slack:
-            h = numpy.zeros(2*N)
+            h = numpy.zeros((2*N, 1))
+            for i in range(N, 2*N):
+                h[i] = self.slack
+            # print(h)
         else:
             h = numpy.zeros(N)
 
         if self.slack:
             # TODO fix G
-            G = numpy.array([[-50.0 if y >= N else 0.0 for x in range(N)] for y in range(2*N)])
+            G = numpy.array([[0.0 if y >= N else 0.0 for x in range(N)] for y in range(2*N)])
         else:
             G = numpy.zeros((N, N))
 
         if self.slack:
             for i in range(0, N):
-                G[i][i] = -1
+                G[i][i] = -1.0
                 # Lower part of G
-                G[N+i][i] = 0
+                G[N+i][i] = 1.0
         else:
             for i in range(0, N):
-                G[i][i] = -1
+                G[i][i] = -1.0
         # print(G)
 
         P = self.p(t, x)
