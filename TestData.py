@@ -5,24 +5,24 @@ import numpy, pylab, random, math
 
 class TestData():
     def __init__(self):
+        # random.seed(95)
         self.generate()
 
     def generate(self):
-        # numpy.random.seed(100)
         self.classA = [(random.normalvariate(-1.5, 1),
             random.normalvariate(0.5, 1),
             1.0)
             for i in range(5)] + \
-                    [(random.normalvariate(-1.5, 1),  # Good for linear kernel
-                    # [(random.normalvariate(1.5, 1),  # Default
+                    [(random.normalvariate(1.5, 1),  # Default
+                    # [(random.normalvariate(-1.5, 1),  # Good for linear kernel
                         random.normalvariate(0.5, 1),
                         1.0)
                         for i in range(5)]
 
-        # self.classB = [(random.normalvariate(0.0, 0.5),  # Default
-        self.classB = [(random.normalvariate(1.5, 0.5),  # Good for linear kernel
-            # random.normalvariate(-0.5, 0.5),  # Default
-            random.normalvariate(1.5, 0.5),  # Good for linear kernel
+        self.classB = [(random.normalvariate(0.0, 0.5),  # Default
+        # self.classB = [(random.normalvariate(1.5, 0.5),  # Good for linear kernel
+            random.normalvariate(-0.5, 0.5),  # Default
+            # random.normalvariate(1.5, 0.5),  # Good for linear kernel
             -1.0)
             for i in range(10)]
         self.data = self.classA + self.classB

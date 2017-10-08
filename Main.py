@@ -16,7 +16,8 @@ def main():
     t = [sign for _,_,sign in test_data]
     assert(len(x) is len(t))
 
-    svm_tools = SVMTools(x, t, kernel='linear', slack=0, polynomial_exp=2, radial_sigma=15)
+    # Set slack=0 to disable the use of slack variables
+    svm_tools = SVMTools(x, t, kernel='polynomial', slack=50, polynomial_exp=3, radial_sigma=15)
 
     x_range = numpy.arange(-4, 4, 0.05)
     y_range = numpy.arange(-4, 4, 0.05)

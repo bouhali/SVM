@@ -1,0 +1,30 @@
+Q: Move the clusters around to make it easier or harder for the clas-
+sifier to find a decent boundary. Pay attention to when the qt
+function prints an error message that it can not find a solution.
+A:
+Ändras klass A&B till att innehålla två linjärt separerbara grupper medför det att linear kernel i princip alltid fungerar.
+
+Q: Implement some of the non-linear kernels. you should be able to
+classify very hard datasets.
+A:
+Sigmoid kernel knappt.
+
+Q: The non-linear kernels have parameters; explore how they influence
+the decision boundary. Reason about this in terms of the bias-
+variance trade-off.
+A:
+Polynomial kernel: leder högre sigma till större varians men lägre bias, kolla seed100/noslack/poly*.png.
+Radial kernel: leder låg sigma till låg bias men hög varians, högre sigma blir högre bias lägre varians. Kolla på filerna radialX_slack0_*.png under plots/rand100/noslack.
+
+Q: Explore the role of the parameter C. What happens for very
+large/small values?
+A:
+Polynomial kernel: TODO, svårt att se på plots men borde vara som radial.
+Radial kernel: när kostnaden C ökar så minskar bias medan variansen ökar. Notera under plots/seed96_slack/radial15*.png hur bias minskar för större C i och med att svarta linjen passar bättre, medan variansen ökar i och med att röda linjen blir mer detaljerad.
+Sammanfattat: Hög C leder till overfitting medan låg C till underfitting.
+
+Q: Imagine that you are given data that is not easily separable. When
+should you opt for more slack rather than going for a more complex
+model and vice versa?
+A: TODO
+
