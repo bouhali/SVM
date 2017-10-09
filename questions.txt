@@ -13,7 +13,8 @@ Q: The non-linear kernels have parameters; explore how they influence
 the decision boundary. Reason about this in terms of the bias-
 variance trade-off.
 A:
-Polynomial kernel: leder högre sigma till större varians men lägre bias, kolla seed100/noslack/poly*.png.
+Polynomial kernel: högre grad ger större varians, kolla seed100/noslack/poly*.png.
+Polynomial kernel: när p ökar så ökar komplexiteten av modellen i den mening att fler observationsvektorer blir suportvektorer. Det innebär att fler datapunkter får en avgörande roll i hur klassuppdelningen kommer att se ut. Om fler datapunkter får en avgörande roll kommer uppdelaren vara känslig för ändringar i data dvs hög varians. Angående bias så känns det inte som att det finns en direkt trade-of. Bias verkar snarare bero av formen av delaren och datans ursprung. p=3 i exempelplottarna känns som den delaren med lägst bias. 
 Radial kernel: leder låg sigma till låg bias men hög varians, högre sigma blir högre bias lägre varians. Kolla på filerna radialX_slack0_*.png under plots/rand100/noslack.
 
 Q: Explore the role of the parameter C. What happens for very
@@ -26,5 +27,6 @@ Sammanfattat: Hög C leder till overfitting medan låg C till underfitting.
 Q: Imagine that you are given data that is not easily separable. When
 should you opt for more slack rather than going for a more complex
 model and vice versa?
-A: TODO
+A:
+Om alla datapunkter är en suportvektor kommer modellen inte att generalisera bra, dvs man bör aldrig sträva efter en för komplex modell. Man får hitta en balans mellan bra generalisering och inte för många felklassificeringar. Rent praktiskt kan man addera en kostnadsfunktion för felklassificeringar gjorda pga overfiting. Detta kan implementeras i quadratic pragramming problem. 
 
